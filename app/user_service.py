@@ -48,9 +48,7 @@ class UserService:
         return dict(user)
 
     def delete_user(self, empid):
-        matches = [u for u in self._users if u["empid"].startswith(empid)]
-        if not matches:
-            raise KeyError(f"User {empid} not found")
-        self._users = [u for u in self._users if u not in matches]
+        user = self.get_user(empid)  # exact match; raises KeyError if unknown
+        self._users.remove(user)
         self._save()
-        return dict(matches[0])
+        return dict(user)
