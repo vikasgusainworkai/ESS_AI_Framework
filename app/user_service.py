@@ -34,6 +34,8 @@ class UserService:
 
     def add_user(self, empid, username, designation):
         empid, username, designation = self._validate(empid, username, designation)
+        if any(u["empid"] == empid for u in self._users):
+            raise ValueError(f"EMPID {empid} already exists")
         user = {"empid": empid, "username": username, "designation": designation}
         self._users.append(user)
         self._save()
