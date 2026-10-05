@@ -19,9 +19,13 @@ class UserService:
     @staticmethod
     def _validate(empid, username, designation):
         """Return the cleaned (empid, username, designation) or raise ValueError."""
-        if empid is None or username is None or designation is None:
-            raise ValueError("All fields are required")
-        return empid, username, designation
+        cleaned = []
+        for label, value in (("EMPID", empid), ("Username", username), ("Designation", designation)):
+            text = "" if value is None else str(value).strip()
+            if not text:
+                raise ValueError(f"{label} is required")
+            cleaned.append(text)
+        return tuple(cleaned)
 
     def list_users(self):
         return [dict(u) for u in self._users]
