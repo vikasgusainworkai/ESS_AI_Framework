@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.venv/
+jira_lite/tickets.json
+data/users.json

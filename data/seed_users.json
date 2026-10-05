@@ -1,0 +1,7 @@
+[
+  {"empid": "EMP1",  "username": "asha.rao",     "designation": "Software Engineer"},
+  {"empid": "EMP2",  "username": "vikram.singh", "designation": "QA Analyst"},
+  {"empid": "EMP3",  "username": "neha.gupta",   "designation": "Product Manager"},
+  {"empid": "EMP10", "username": "ravi.kumar",   "designation": "DevOps Engineer"},
+  {"empid": "EMP11", "username": "meena.iyer",   "designation": "Team Lead"}
+]

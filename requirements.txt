@@ -1,0 +1,3 @@
+# The demo itself needs NOTHING beyond Python 3.9+ and git.
+# Only for `--mode ai` (real model call):
+# anthropic

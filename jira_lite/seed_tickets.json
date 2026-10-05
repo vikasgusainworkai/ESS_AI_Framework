@@ -1,0 +1,94 @@
+{
+  "project": "ESS",
+  "tickets": [
+    {
+      "id": "ESS-201",
+      "title": "Deleting an employee also deletes other employees whose EMPID starts with the same text",
+      "type": "Bug",
+      "priority": "Highest",
+      "status": "To Do",
+      "reporter": "HR Team",
+      "assignee": "Unassigned",
+      "component": "User Management",
+      "description": "When HR deletes one employee, other employees disappear from the list too. Deleting EMP1 also removes EMP10 and EMP11. This is data loss in production.",
+      "steps": [
+        "Open the User Management app (list has EMP1, EMP10 and EMP11)",
+        "Click Delete on the row EMP1 and confirm"
+      ],
+      "expected": "Only EMP1 is removed. EMP10 and EMP11 stay in the list. Deleting an EMPID that does not exist shows 'not found' and removes nothing.",
+      "actual": "EMP1, EMP10 and EMP11 are all deleted.",
+      "acceptance_criteria": [
+        "delete_user('EMP1') removes only the user with EMPID exactly EMP1",
+        "Deleting an unknown EMPID raises KeyError and removes nobody",
+        "Add, edit and list behaviour is unchanged"
+      ],
+      "comments": [
+        {"author": "HR Team", "time": "09:12:04", "body": "We lost 2 employee records today after deleting a leaver. Please fix urgently."}
+      ]
+    },
+    {
+      "id": "ESS-202",
+      "title": "The same EMPID can be added twice",
+      "type": "Bug",
+      "priority": "High",
+      "status": "To Do",
+      "reporter": "Support Team",
+      "assignee": "Unassigned",
+      "component": "User Management",
+      "description": "Adding a user with an EMPID that already exists creates a second row. After that, Edit and Delete only ever act on the first of the two rows.",
+      "steps": [
+        "Click the + icon",
+        "Enter EMPID EMP2 (already in the list), any username and designation, then Save"
+      ],
+      "expected": "A clear error: 'EMPID EMP2 already exists' and no new row.",
+      "actual": "A second EMP2 row is created.",
+      "acceptance_criteria": [
+        "Adding an existing EMPID raises ValueError('EMPID <id> already exists')",
+        "The user list is unchanged after the rejected add",
+        "Adding a new, different EMPID still works"
+      ],
+      "comments": []
+    },
+    {
+      "id": "ESS-203",
+      "title": "Blank or space-only values are accepted when adding or editing a user",
+      "type": "Bug",
+      "priority": "Medium",
+      "status": "To Do",
+      "reporter": "QA",
+      "assignee": "Unassigned",
+      "component": "User Management",
+      "description": "The form lets you save empty or space-only EMPID, username or designation, which creates invisible-looking rows. Extra spaces around values are also saved as typed.",
+      "steps": [
+        "Click the + icon",
+        "Type a few spaces in Username, fill the other fields, then Save"
+      ],
+      "expected": "'Username is required' error. Values like '  asha  ' are saved as 'asha'.",
+      "actual": "A row with a blank username is created; spaces are kept.",
+      "acceptance_criteria": [
+        "Blank, space-only or missing EMPID / username / designation raises ValueError('<Field> is required')",
+        "Leading and trailing spaces are trimmed before saving",
+        "The same rules apply when editing a user"
+      ],
+      "comments": []
+    },
+    {
+      "id": "ESS-200",
+      "title": "User list does not refresh after adding a user",
+      "type": "Bug",
+      "priority": "Low",
+      "status": "Done",
+      "reporter": "QA",
+      "assignee": "Dev Team",
+      "component": "User Management",
+      "description": "After saving a new user the table kept showing the old list until the page was reloaded.",
+      "steps": [],
+      "expected": "New row appears immediately.",
+      "actual": "Row only appears after a page reload.",
+      "acceptance_criteria": ["List reloads after add"],
+      "comments": [
+        {"author": "Dev Team", "time": "Yesterday", "body": "Fixed and merged."}
+      ]
+    }
+  ]
+}
